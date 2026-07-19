@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarti | Portfolio</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for Retro/Classic Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
+
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fcfbf7; 
+            color: #2c2523; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+        .dark body {
+            background-color: #0b131f; 
+            color: #f1f5f9; 
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom 3D Canvas Layer */
+        #canvas3d {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+
+    <style>
+
+.container{
+    width:420px;
+    height:620px;
+    border-radius:30px;
+    overflow:hidden;
+    position:relative;
+    background:#131e2f;
+    border:1px solid #1d3945;
+    box-shadow:0 30px 60px rgba(0,0,0,.45);
+}
+
+.header{
+    position:absolute;
+    top:20px;
+    left:20px;
+    right:20px;
+    display:flex;
+    justify-content:space-between;
+    z-index:100;
+    color:#63e6be;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.footer{
+    position:absolute;
+    left:20px;
+    right:20px;
+    bottom:20px;
+    z-index:100;
+    padding:18px;
+    border-radius:16px;
+    backdrop-filter:blur(15px);
+    background:rgba(19,30,47,.75);
+    border:1px solid rgba(99,230,190,.15);
+}
+
+.footer h2{
+    color:white;
+    margin-bottom:5px;
+}
+
+.footer p{
+    color:#63e6be;
+    font-size:13px;
+}
+
+spline-viewer{
+    width:100%;
+    height:100%;
+}
+</style>
+</head>
+<body class="selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-teal-800 dark:selection:text-teal-100">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-[#fcfbf7]/80 dark:bg-[#0b131f]/80 backdrop-blur-md border-b border-stone-200 dark:border-teal-950 px-6 py-4 transition-all">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="#" class="serif-title text-2xl font-bold tracking-tight text-stone-800 dark:text-teal-100">Aarti.</a>
+            
+            <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wide text-stone-600 dark:text-slate-300 items-center">
+                <a href="#about" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Projects</a>
+                <a href="#certifications" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Certifications & Wins</a>
+                <a href="#contact" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Contact</a>
+                
+                <button id="theme-toggle" class="text-stone-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-teal-400 transition-colors focus:outline-none ml-4">
+                    <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-4 md:hidden">
+                <button id="theme-toggle-mobile" class="text-stone-700 dark:text-slate-300 focus:outline-none">
+                    <i id="theme-icon-mobile" class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <button class="text-stone-700 dark:text-slate-300 focus:outline-none" id="menu-btn">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div class="hidden md:hidden flex flex-col space-y-3 mt-4 px-2 pb-2 text-stone-600 dark:text-slate-300" id="mobile-menu">
+            <a href="#about" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">About</a>
+            <a href="#skills" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Skills</a>
+            <a href="#projects" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Projects</a>
+            <a href="#certifications" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Certifications & Wins</a>
+            <a href="#contact" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors">Contact</a>
+        </div>
+    </nav>
+
+
+
+    <!-- ================= Hero / Welcome Section ================= -->
+<header class="relative min-h-screen flex items-center justify-center bg-[#fcfbf7] dark:bg-[#0b131f] transition-colors duration-300 overflow-hidden px-6 lg:px-16 py-20">
+    
+    <!-- Editorial Grid Background Effect -->
+    <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.04] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+    
+    <div class="relative max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+        
+        <!-- Left Side: Text Details & Context -->
+        <div class="lg:col-span-7 space-y-6" data-aos="fade-right" data-aos-duration="1000">
+            
+            <!-- Status Pill Badge -->
+            <div class="inline-flex items-center gap-2 bg-stone-200/60 dark:bg-teal-950/40 border border-stone-300/40 dark:border-teal-900/50 rounded-full px-4 py-1.5 transition-all">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-stone-600 dark:text-teal-400">Available for Collaborations</span>
+            </div>
+            
+            <!-- Typography Section with Large Watermark Context -->
+            <div class="relative">
+                <!-- Massive Background Subtle Text Layer -->
+                <div class="absolute -top-10 -left-4 text-7xl sm:text-9xl font-extrabold text-stone-200/30 dark:text-slate-800/20 select-none font-sans tracking-tighter pointer-events-none z-0">
+                    CSBS
+                </div>
+                
+                <h1 class="relative serif-title text-5xl sm:text-7xl font-extrabold text-stone-900 dark:text-white tracking-tight z-10">
+                    I'm Aarthi.
+                </h1>
+                <h2 class="text-3xl sm:text-5xl font-bold text-stone-500 dark:text-slate-400 mt-1 tracking-tight">
+                    Systems Engineer & Designer
+                </h2>
+            </div>
+            
+            <!-- Bio / Profile Overview -->
+            <p class="text-stone-600 dark:text-slate-300 text-base sm:text-lg max-w-xl leading-relaxed">
+                Computer Science & Business Systems engineering student at Saranathan College of Engineering. Moving from a biology background into software architecture, I specialize in combining algorithmic logic with strategic frameworks and elegant interface design.
+            </p>
+            
+            <!-- Action Controls & Social Shortcuts -->
+            <div class="pt-4 flex flex-wrap items-center gap-6">
+                <a href="#projects" class="px-6 py-3.5 bg-stone-900 hover:bg-stone-800 dark:bg-white dark:hover:bg-slate-100 text-[#fcfbf7] dark:text-[#0b131f] font-semibold rounded-full shadow-md hover:shadow-lg transition-all duration-300 text-sm">
+                    Selected Works
+                </a>
+                
+                <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3.5 bg-amber-700 hover:bg-amber-800 dark:bg-teal-500 dark:hover:bg-teal-600 text-white dark:text-[#0b131f] font-semibold rounded-full shadow-md hover:shadow-lg transition-all duration-300 text-sm">
+                    Get in Touch <i class="fa-solid fa-paper-plane text-xs"></i>
+                </a>
+                
+                <!-- Minimal Network Divider Line & Links -->
+                <div class="hidden sm:flex items-center gap-4 border-l border-stone-300 dark:border-slate-800 pl-6 text-stone-500 dark:text-slate-400 text-lg">
+                    <a href="https://github.com" target="_blank" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" class="hover:text-amber-700 dark:hover:text-teal-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Right Side: Framed Structural Frame / Character Image Container -->
+     <div class="lg:col-span-5 flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="1000">
+    <div class="relative group">
+        <!-- Abstract Accent Corner Brackets matching the design aesthetic -->
+        <div class="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-stone-400 dark:border-teal-600"></div>
+        <div class="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-stone-400 dark:border-teal-600"></div>
+
+        <!-- Combined Container: Larger dimensions with the second layout's style rules -->
+        <div class="relative w-80 h-[26rem] sm:w-96 sm:h-[30rem] bg-stone-100 dark:bg-[#131e2f] border border-stone-300 dark:border-teal-900 rounded-3xl shadow-xl overflow-hidden p-4 flex flex-col justify-between group hover:border-amber-700 dark:hover:border-teal-400 transition-all duration-500">
+            
+            <!-- Gradient Overlay Layer -->
+            <div class="absolute inset-0 bg-gradient-to-b from-amber-900/5 to-amber-950/20 dark:from-teal-500/5 dark:to-teal-950/20 pointer-events-none"></div>
+            
+           <div class="container">
+
+   
+
+    <spline-viewer
+        url="https://prod.spline.design/zS15SJeb7s1kZXKJ/scene.splinecode">
+    </spline-viewer>
+
+   
+
+</div>
+            <div class="relative group">
+
+    <!-- Glow -->
+    <div class="absolute inset-0 rounded-full blur-3xl bg-teal-400/30"></div>
+
+    <!-- Image -->
+    <img
+        src=""
+        class="relative z-10
+               rounded-full
+               shadow-2xl
+               transition
+               duration-500
+               group-hover:scale-105
+               group-hover:-rotate-2">
+
+        </div>
+    </div>
+</div>
+
+    </div>
+</header>
+
+<!-- ================= 01. About Me Section ================= -->
+<section id="about" class="relative py-0 max-w-6xl mx-auto px-6 mt-16 overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+    
+    <!-- Who Am I Section Header: Centered with Subtitle Tagline -->
+    <div class="text-center mb-20">
+        <h2 class="serif-title text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 dark:text-stone-100 uppercase">
+            WHO AM I?
+        </h2>
+        <p class="text-xs sm:text-sm font-mono font-medium tracking-wide text-stone-500 dark:text-teal-500 normal-case max-w-xl mx-auto mt-3 leading-relaxed">
+            Who Passionate about creating responsive web applications and continuously learning modern technologies
+        </p>
+        <div class="w-24 h-0.5 bg-amber-800 dark:bg-teal-500 mx-auto mt-4"></div>
+    </div>
+
+    <!-- Main Section Grid Structure -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
+        
+        <!-- Left Side: Double Border Aesthetic Portrait Frame -->
+        <div class="lg:col-span-5 relative flex justify-center group/frame">
+            
+            <div class="absolute -top-14 left-4 opacity-5 dark:opacity-10 flex items-center gap-2 select-none pointer-events-none text-stone-900 dark:text-teal-400">
+                <i class="fa-regular fa-user text-5xl"></i>
+                <span class="text-5xl font-extrabold tracking-tight font-sans">BIO</span>
+            </div>
+
+            <div class="absolute -bottom-6 left-6 text-stone-400 dark:text-teal-600/50 text-3xl font-light rotate-12 pointer-events-none transition-transform duration-700 group-hover/frame:rotate-45">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <div class="absolute -top-6 -right-4 w-10 h-10 border border-amber-700/30 dark:border-teal-500/30 rotate-45 rounded-xs pointer-events-none hidden sm:block"></div>
+            <div class="absolute bottom-12 -right-8 text-stone-300 dark:text-slate-800 text-4xl rotate-45 pointer-events-none hidden md:block">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+
+            <!-- Double-Border Framed Picture Layout -->
+            <div class="relative w-72 sm:w-80 mb-4 z-10">
+                <div class="absolute inset-0 border-2 border-amber-800 dark:border-teal-500 rounded-2xl translate-x-4 translate-y-4 group-hover/frame:translate-x-2 group-hover/frame:translate-y-2 transition-transform duration-500 ease-out"></div>
+
+                <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 shadow-xl aspect-[4/5]">
+                    <img 
+                        src="C:\Users\AARTHI\Downloads\WhatsApp Image 2026-07-16 at 7.30.11 AM.jpeg" 
+                        alt="Portrait Matrix Display" 
+                        class="w-full h-full object-cover grayscale opacity-95 contrast-110 transition duration-700 ease-in-out group-hover/frame:scale-105 group-hover/frame:grayscale-0 group-hover/frame:opacity-100">
+                    <div class="absolute inset-0 bg-amber-900/5 dark:bg-teal-900/10 mix-blend-multiply group-hover/frame:opacity-0 transition-opacity duration-500"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Side: Clean Narrative Timeline Deck with Fitted Axis -->
+        <div class="lg:col-span-7 space-y-0">
+            
+            <div class="relative pl-0.5 space-y-12">
+                
+                <!-- Fitted Axis Track: height terminates perfectly at the last block item top threshold -->
+                <div class="absolute top-3 bottom-24 left-4 w-0 border-l-2 border-dashed border-stone-300 dark:border-slate-800 pointer-events-none z-0"></div>
+
+                <!-- Timeline Paragraph Segment 1 -->
+                <div class="relative pl-14 group transition-transform duration-300 hover:translate-x-1 z-10">
+                    <div class="absolute left-1.5 top-0.5 w-6 h-6 rounded-md bg-stone-50 dark:bg-[#131e2f] border border-stone-300 dark:border-slate-800 text-amber-850 dark:text-teal-400 text-xs flex items-center justify-center group-hover:border-amber-700 dark:group-hover:border-teal-400 group-hover:rotate-12 group-hover:scale-110 z-10 duration-300 shadow-xs">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="flex items-center gap-1.5 h-4">
+                            <!-- Responsive conditional indicator popping only on component hover context -->
+                            <span class="text-xs tracking-tight font-bold font-mono select-none text-amber-700 dark:text-teal-400 opacity-0 scale-50 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110 group-hover:animate-[ping_1.5s_infinite_ease-in-out] origin-center">▪</span>
+                            <span class="text-[10px] font-mono font-bold tracking-widest text-amber-800 dark:text-teal-400 uppercase transition-all duration-300 group-hover:translate-x-0.5">
+                                Academic Path
+                            </span>
+                        </div>
+                        <p class="text-stone-600 dark:text-slate-400 leading-relaxed text-md">
+                            Hello! I'm an engineering student and aspiring full-stack developer based in Thanjavur, India. My academic path balances structural systems engineering logic with optimized business framework parameters.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Paragraph Segment 2 -->
+                <div class="relative pl-14 group transition-transform duration-300 hover:translate-x-1 z-10">
+                    <div class="absolute left-1.5 top-0.5 w-6 h-6 rounded-md bg-stone-50 dark:bg-[#131e2f] border border-stone-300 dark:border-slate-800 text-amber-850 dark:text-teal-400 text-xs flex items-center justify-center group-hover:border-amber-700 dark:group-hover:border-teal-400 group-hover:rotate-12 group-hover:scale-110 z-10 duration-300 shadow-xs">
+                        <i class="fa-solid fa-dna"></i>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="flex items-center gap-1.5 h-4">
+                            <!-- Responsive conditional indicator popping only on component hover context -->
+                            <span class="text-xs tracking-tight font-bold font-mono select-none text-amber-700 dark:text-teal-400 opacity-0 scale-50 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110 group-hover:animate-[ping_1.5s_infinite_ease-in-out] origin-center">▪</span>
+                            <span class="text-[10px] font-mono font-bold tracking-widest text-amber-800 dark:text-teal-400 uppercase transition-all duration-300 group-hover:translate-x-0.5">
+                                The Core Shift
+                            </span>
+                        </div>
+                        <p class="text-stone-600 dark:text-slate-400 leading-relaxed text-md">
+                            My background bridges an initial deep foundation in biological sciences with the highly structured, computational domain of software development. I thrive on translating syntax logic into clean runtime processes.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Paragraph Segment 3 -->
+                <div class="relative pl-14 group transition-transform duration-300 hover:translate-x-1 z-10">
+                    <div class="absolute left-1.5 top-0.5 w-6 h-6 rounded-md bg-amber-800 dark:bg-teal-600 text-white dark:text-slate-900 text-xs flex items-center justify-center border border-amber-900 dark:border-teal-500 group-hover:scale-115 z-10 duration-300 shadow-md">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="space-y-1.5">
+                        <div class="flex items-center gap-1.5 h-4">
+                            <!-- Responsive conditional indicator popping only on component hover context -->
+                            <span class="text-xs tracking-tight font-bold font-mono select-none text-amber-700 dark:text-teal-400 opacity-0 scale-50 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110 group-hover:animate-[ping_1.5s_infinite_ease-in-out] origin-center">▪</span>
+                            <span class="text-[10px] font-mono font-bold tracking-widest text-amber-800 dark:text-teal-400 uppercase transition-all duration-300 group-hover:translate-x-0.5">
+                                Engineering Focus
+                            </span>
+                        </div>
+                        <p class="text-stone-600 dark:text-slate-400 leading-relaxed text-md">
+                            Learning programming has fundamentally reshaped the way I tackle design logic. I actively focus on engineering responsive web components, optimizing layout structures, and refining custom interface interactions.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* Circular Gauge Animation */
+    @keyframes fillGauge {
+        from { stroke-dashoffset: 283; } /* Circumference of circle with r=45 */
+        to { stroke-dashoffset: var(--target-offset); }
+    }
+    .gauge-circle {
+        fill: none;
+        stroke-width: 8;
+        stroke-linecap: round;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        stroke-dasharray: 283;
+        animation: fillGauge 1.5s ease-out forwards;
+    }
+</style>
+ <div class="text-center py-10  max-w-2xl mx-auto mb-16">
+                <h2 class="serif-title text-3xl font-bold text-stone-900 dark:text-white">Skills & Competencies</h2>
+                <div class="w-12 h-[2px] bg-amber-700 dark:bg-teal-400 mx-auto mt-4"></div>
+    </div>
+<section class="px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8" style="padding-bottom: 30px !important;">
+    
+
+  <!-- Card Component -->
+  <!-- Remove 'border-glow' to clean the visuals -->
+  <div class="tilt-card bg-[#fcfbf7] dark:bg-[#0b131f] p-8 h-[520px] relative shadow-lg group rounded-3xl overflow-hidden cursor-pointer">
+    
+    <!-- Default: Percentage Gauge -->
+    <div class="absolute inset-0 p-8 flex flex-col items-center justify-center transition-opacity duration-500 group-hover:opacity-0">
+      <h3 class="serif-title text-2xl mb-8 text-[#2c2523] dark:text-[#f1f5f9]">Frontend</h3>
+      <div class="relative w-48 h-48 flex items-center justify-center">
+        <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+          <circle cx="50" cy="50" r="42" class="stroke-[#e8e4db] dark:stroke-[#16202e]" stroke-width="6" fill="none" />
+          <circle cx="50" cy="50" r="42" class="gauge-circle stroke-[#d6c6a1]" stroke-width="6" fill="none" stroke-dasharray="264" style="--target-offset: 40;" />
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-3xl font-bold text-[#2c2523] dark:text-white">85%</span></div>
+      </div>
+    </div>
+
+    <!-- Hover: Orbital 4-Circle Layout -->
+  <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none">
+  <!-- Central Anchor -->
+  <div class="w-24 h-24 rounded-full border border-[#d6c6a1] flex items-center justify-center text-[10px] font-bold text-[#2c2523] dark:text-white z-10 bg-[#fcfbf7]/90">
+    FRONTEND
+  </div>
+
+  <!-- Orbital Container -->
+  <div class="absolute w-56 h-56 flex items-center justify-center">
+    <!-- Using 8 slots with 45-degree spacing -->
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(0deg) translate(85px) rotate(0deg);">
+      <i class="fa-brands fa-html5"></i>
+    </div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(45deg) translate(85px) rotate(-45deg);">
+      <i class="fa-brands fa-css3"></i>
+    </div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(90deg) translate(85px) rotate(-90deg);">
+      <i class="fa-brands fa-js"></i>
+    </div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(135deg) translate(85px) rotate(-135deg);">
+      <i class="fa-brands fa-react"></i>
+    </div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(180deg) translate(85px) rotate(-180deg);">
+      <i class="fa-brands fa-angular"></i>
+    </div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(225deg) translate(85px) rotate(-225deg);">
+      <i class="fa-brands fa-bootstrap"></i>
+    </div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(270deg) translate(85px) rotate(-270deg);">
+      <i class="fa-brands fa-vuejs"></i>
+    </div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(315deg) translate(85px) rotate(-315deg);">
+      <i class="fa-brands fa-sass"></i>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- Backend Card -->
+<div class="tilt-card bg-[#fcfbf7] dark:bg-[#0b131f] p-8 h-[520px] relative shadow-lg group rounded-3xl overflow-hidden cursor-pointer">
+  
+  <!-- Default: Percentage Gauge -->
+  <div class="absolute inset-0 p-8 flex flex-col items-center justify-center transition-opacity duration-500 group-hover:opacity-0">
+    <h3 class="serif-title text-2xl mb-8 text-[#2c2523] dark:text-[#f1f5f9]">Backend</h3>
+    <div class="relative w-48 h-48 flex items-center justify-center">
+      <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+        <circle cx="50" cy="50" r="42" class="stroke-[#e8e4db] dark:stroke-[#16202e]" stroke-width="6" fill="none" />
+        <circle cx="50" cy="50" r="42" class="gauge-circle stroke-[#d6c6a1]" stroke-width="6" fill="none" stroke-dasharray="264" style="--target-offset: 53;" />
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center"><span class="text-3xl font-bold text-[#2c2523] dark:text-white">80%</span></div>
+    </div>
+  </div>
+
+  <!-- Hover: Orbital 4-Circle Layout -->
+ <!-- Backend Orbital Icons -->
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none">
+  <div class="w-24 h-24 rounded-full border border-[#d6c6a1] flex items-center justify-center text-[10px] font-bold text-[#2c2523] dark:text-white z-10 bg-[#fcfbf7]/90">BACKEND</div>
+  <div class="absolute w-56 h-56 flex items-center justify-center">
+    <!-- Python, Node, Database, Server, Docker, Postgre, Java, PHP -->
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(0deg) translate(85px) rotate(0deg);"><i class="fa-brands fa-python"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(45deg) translate(85px) rotate(-45deg);"><i class="fa-brands fa-node-js"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(90deg) translate(85px) rotate(-90deg);"><i class="fa-solid fa-database"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(135deg) translate(85px) rotate(-135deg);"><i class="fa-solid fa-server"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(180deg) translate(85px) rotate(-180deg);"><i class="fa-brands fa-docker"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(225deg) translate(85px) rotate(-225deg);"><i class="fa-solid fa-database"></i></div> <!-- Postgres proxy -->
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(270deg) translate(85px) rotate(-270deg);"><i class="fa-brands fa-java"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(315deg) translate(85px) rotate(-315deg);"><i class="fa-brands fa-php"></i></div>
+  </div>
+</div>
+</div>
+
+  <!-- AI & ML Card -->
+<div class="tilt-card bg-[#fcfbf7] dark:bg-[#0b131f] p-8 h-[520px] relative shadow-lg group rounded-3xl overflow-hidden cursor-pointer">
+  
+  <!-- Default: Percentage Gauge -->
+  <div class="absolute inset-0 p-8 flex flex-col items-center justify-center transition-opacity duration-500 group-hover:opacity-0">
+    <h3 class="serif-title text-2xl mb-8 text-[#2c2523] dark:text-[#f1f5f9]">AI & ML</h3>
+    <div class="relative w-48 h-48 flex items-center justify-center">
+      <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+        <circle cx="50" cy="50" r="42" class="stroke-[#e8e4db] dark:stroke-[#16202e]" stroke-width="6" fill="none" />
+        <circle cx="50" cy="50" r="42" class="gauge-circle stroke-[#d6c6a1]" stroke-width="6" fill="none" stroke-dasharray="264" style="--target-offset: 66;" />
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center"><span class="text-3xl font-bold text-[#2c2523] dark:text-white">75%</span></div>
+    </div>
+  </div>
+
+  <!-- Hover: Orbital 4-Circle Layout -->
+ <!-- AI & ML Orbital Icons -->
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none">
+  <div class="w-24 h-24 rounded-full border border-[#d6c6a1] flex items-center justify-center text-[10px] font-bold text-[#2c2523] dark:text-white z-10 bg-[#fcfbf7]/90">AI & ML</div>
+  <div class="absolute w-56 h-56 flex items-center justify-center">
+    <!-- Brain, Robot, Chip, Chart, TensorFlow, Python, Network, Database -->
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(0deg) translate(85px) rotate(0deg);"><i class="fa-solid fa-brain"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(45deg) translate(85px) rotate(-45deg);"><i class="fa-solid fa-robot"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(90deg) translate(85px) rotate(-90deg);"><i class="fa-solid fa-microchip"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(135deg) translate(85px) rotate(-135deg);"><i class="fa-solid fa-chart-line"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(180deg) translate(85px) rotate(-180deg);"><i class="fa-solid fa-square-root-variable"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(225deg) translate(85px) rotate(-225deg);"><i class="fa-solid fa-code-branch"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(270deg) translate(85px) rotate(-270deg);"><i class="fa-solid fa-network-wired"></i></div>
+    <div class="absolute w-10 h-10 rounded-full border border-[#d6c6a1] bg-[#fcfbf7] flex items-center justify-center text-[#d6c6a1] shadow-sm" style="transform: rotate(315deg) translate(85px) rotate(-315deg);"><i class="fa-solid fa-database"></i></div>
+  </div>
+</div>
+</div>
+
+</section>
+
+
+
+<style>
+  @keyframes fillGauge { from { stroke-dashoffset: 283; } to { stroke-dashoffset: var(--target-offset); } }
+  .gauge-circle { stroke-dasharray: 283; transform: rotate(-90deg); transform-origin: 50% 50%; animation: fillGauge 1.5s ease-out forwards; }
+  .tilt-card { transform-style: preserve-3d; transition: all 0.4s ease; }
+  .border-glow::before { content: ""; position: absolute; inset: -2px; border-radius: 1.5rem; background: conic-gradient(from 0deg, transparent 0deg, #d6c6a1 90deg, transparent 180deg); opacity: 0; transition: opacity 0.3s; z-index: -1; }
+  .tilt-card:hover .border-glow::before { opacity: 1; animation: spin 2s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+
+
+
+<section id="projects" class="py-24 bg-[#f4efe8] dark:bg-[#1a1714] transition-colors duration-500">
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <!-- Section Header -->
+        <div class="mb-16 text-center">
+            <h2 class="text-4xl font-serif font-bold text-stone-800 dark:text-white">Featured Projects</h2>
+            <div class="w-16 h-1 bg-amber-700 dark:bg-amber-500 mx-auto mt-6 rounded-full"></div>
+            <p class="mt-4 text-stone-600 dark:text-stone-400">A collection of technical and creative endeavors.</p>
+        </div>
+
+        <!-- Gallery -->
+        <div class="flex overflow-x-auto gap-8 pb-10 scrollbar-hide" style="scrollbar-width: none; -ms-overflow-style: none;">
+            
+            <!-- Project 1 -->
+            <div class="flex-none w-72 h-[420px] group bg-white dark:bg-[#2c2824] p-8 rounded-3xl border border-stone-200 dark:border-[#3a3530] transition-all duration-300 hover:scale-[1.02] hover:bg-[#3d3833] hover:border-amber-700/50 hover:shadow-2xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="text-[10px] text-amber-700 dark:text-amber-500 font-bold uppercase tracking-[0.2em]">Development</div>
+                    <h3 class="serif-title text-2xl font-bold text-stone-900 dark:text-amber-500 transition-colors">Personal Portfolio</h3>
+                    <p class="text-stone-600 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">Custom responsive portfolio featuring semantic HTML5, Tailwind CSS, and a 90s-inspired aesthetic.</p>
+                </div>
+                <a href="#" class="text-xs font-bold text-stone-900 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 flex items-center gap-2">Repository <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="flex-none w-72 h-[420px] group bg-white dark:bg-[#2c2824] p-8 rounded-3xl border border-stone-200 dark:border-[#3a3530] transition-all duration-300 hover:scale-[1.02] hover:bg-[#3d3833] hover:border-amber-700/50 hover:shadow-2xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="text-[10px] text-amber-700 dark:text-amber-500 font-bold uppercase tracking-[0.2em]">Computational</div>
+                    <h3 class="serif-title text-2xl font-bold text-stone-900 dark:text-amber-500 transition-colors">Numerical Methods</h3>
+                    <p class="text-stone-600 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">Suite of C++ algorithms focused on differentiation, integration, and error-minimized interpolation.</p>
+                </div>
+                <a href="#" class="text-xs font-bold text-stone-900 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 flex items-center gap-2">Repository <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="flex-none w-72 h-[420px] group bg-white dark:bg-[#2c2824] p-8 rounded-3xl border border-stone-200 dark:border-[#3a3530] transition-all duration-300 hover:scale-[1.02] hover:bg-[#3d3833] hover:border-amber-700/50 hover:shadow-2xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="text-[10px] text-amber-700 dark:text-amber-500 font-bold uppercase tracking-[0.2em]">Infrastructure</div>
+                    <h3 class="serif-title text-2xl font-bold text-stone-900 dark:text-amber-500 transition-colors">Network Security</h3>
+                    <p class="text-stone-600 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">Design and documentation of robust network protocols for secure enterprise data transmission.</p>
+                </div>
+                <a href="#" class="text-xs font-bold text-stone-900 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 flex items-center gap-2">Repository <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="flex-none w-72 h-[420px] group bg-white dark:bg-[#2c2824] p-8 rounded-3xl border border-stone-200 dark:border-[#3a3530] transition-all duration-300 hover:scale-[1.02] hover:bg-[#3d3833] hover:border-amber-700/50 hover:shadow-2xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="text-[10px] text-amber-700 dark:text-amber-500 font-bold uppercase tracking-[0.2em]">Analytics</div>
+                    <h3 class="serif-title text-2xl font-bold text-stone-900 dark:text-amber-500 transition-colors">Data Modeling</h3>
+                    <p class="text-stone-600 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">Predictive modeling project utilizing Google standards for complex dataset interpretation.</p>
+                </div>
+                <a href="#" class="text-xs font-bold text-stone-900 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 flex items-center gap-2">Repository <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="flex-none w-72 h-[420px] group bg-white dark:bg-[#2c2824] p-8 rounded-3xl border border-stone-200 dark:border-[#3a3530] transition-all duration-300 hover:scale-[1.02] hover:bg-[#3d3833] hover:border-amber-700/50 hover:shadow-2xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="text-[10px] text-amber-700 dark:text-amber-500 font-bold uppercase tracking-[0.2em]">Creative</div>
+                    <h3 class="serif-title text-2xl font-bold text-stone-900 dark:text-amber-500 transition-colors">Portrait Series</h3>
+                    <p class="text-stone-600 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 text-sm leading-relaxed">Artistic anatomical study and human portrait series capturing expressive lighting and form.</p>
+                </div>
+                <a href="#" class="text-xs font-bold text-stone-900 dark:text-[#a8a199] group-hover:text-white transition-colors duration-300 flex items-center gap-2">Repository <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Expanded Premium Certification Showcase -->
+<section id="certifications" class="relative py-24 bg-[#fcfbf7] dark:bg-[#0b131f] transition-colors duration-500 overflow-hidden">
+    
+    <!-- Decorative Background Shapes -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-teal-500/5 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6">
+        
+        <!-- Header Section -->
+        <div class="mb-16">
+            <h3 class="serif-title text-4xl font-bold text-stone-900 dark:text-white flex items-center gap-4">
+                <span class="w-16 h-1 bg-amber-700 dark:bg-teal-400 rounded-full"></span> 
+                Professional Credentials
+            </h3>
+        </div>
+
+        <!-- Expanded Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- 1: Google -->
+            <div class="group relative p-8 bg-white/60 dark:bg-[#131e2f]/60 backdrop-blur-xl border border-stone-200/50 dark:border-teal-900/30 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:border-amber-700/50 dark:hover:border-teal-400/50 shadow-sm hover:shadow-lg">
+                <div class="text-amber-700 dark:text-teal-400 mb-6 transition-all duration-500 group-hover:scale-110">
+                    <i class="fa-brands fa-google text-4xl"></i>
+                </div>
+                <h4 class="font-bold text-stone-900 dark:text-white text-lg">Data Analytics</h4>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-stone-500 dark:text-teal-700 mt-2 font-medium">Google Career Certificate</p>
+            </div>
+
+            <!-- 2: Microsoft -->
+            <div class="group relative p-8 bg-white/60 dark:bg-[#131e2f]/60 backdrop-blur-xl border border-stone-200/50 dark:border-teal-900/30 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:border-amber-700/50 dark:hover:border-teal-400/50 shadow-sm hover:shadow-lg">
+                <div class="text-amber-700 dark:text-teal-400 mb-6 transition-all duration-500 group-hover:scale-110">
+                    <i class="fa-brands fa-microsoft text-4xl"></i>
+                </div>
+                <h4 class="font-bold text-stone-900 dark:text-white text-lg">Azure Fundamentals</h4>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-stone-500 dark:text-teal-700 mt-2 font-medium">Microsoft Certification</p>
+            </div>
+
+            <!-- 3: AWS -->
+            <div class="group relative p-8 bg-white/60 dark:bg-[#131e2f]/60 backdrop-blur-xl border border-stone-200/50 dark:border-teal-900/30 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:border-amber-700/50 dark:hover:border-teal-400/50 shadow-sm hover:shadow-lg">
+                <div class="text-amber-700 dark:text-teal-400 mb-6 transition-all duration-500 group-hover:scale-110">
+                    <i class="fa-brands fa-aws text-4xl"></i>
+                </div>
+                <h4 class="font-bold text-stone-900 dark:text-white text-lg">Cloud Practitioner</h4>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-stone-500 dark:text-teal-700 mt-2 font-medium">AWS Certification</p>
+            </div>
+
+            <!-- 4: Academic (CSBS) -->
+            <div class="group relative p-8 bg-white/60 dark:bg-[#131e2f]/60 backdrop-blur-xl border border-stone-200/50 dark:border-teal-900/30 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:border-amber-700/50 dark:hover:border-teal-400/50 shadow-sm hover:shadow-lg">
+                <div class="text-amber-700 dark:text-teal-400 mb-6 transition-all duration-500 group-hover:scale-110">
+                    <i class="fa-solid fa-graduation-cap text-4xl"></i>
+                </div>
+                <h4 class="font-bold text-stone-900 dark:text-white text-lg">CS & Business Systems</h4>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-stone-500 dark:text-teal-700 mt-2 font-medium">Saranathan College</p>
+            </div>
+
+            <!-- 5: Communication -->
+            <div class="group relative p-8 bg-white/60 dark:bg-[#131e2f]/60 backdrop-blur-xl border border-stone-200/50 dark:border-teal-900/30 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:border-amber-700/50 dark:hover:border-teal-400/50 shadow-sm hover:shadow-lg">
+                <div class="text-amber-700 dark:text-teal-400 mb-6 transition-all duration-500 group-hover:scale-110">
+                    <i class="fa-solid fa-award text-4xl"></i>
+                </div>
+                <h4 class="font-bold text-stone-900 dark:text-white text-lg">Communication Excellence</h4>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-stone-500 dark:text-teal-700 mt-2 font-medium">Articulation Program</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Premium Achievement Timeline -->
+<section id="achievements" class="py-24 bg-[#fcfbf7] dark:bg-[#0b131f] transition-colors duration-500">
+    <div class="max-w-5xl mx-auto px-6">
+        <h3 class="serif-title text-4xl font-extrabold text-stone-900 dark:text-white mb-20 text-center">
+            Professional <span class="text-amber-700 dark:text-teal-400">Milestones</span>
+        </h3>
+
+        <div class="relative">
+            <!-- Trimmed Dashed Line: Starts only from the first node downward -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 top-5 h-[85%] border-l-2 border-dashed border-stone-300 dark:border-teal-900/40"></div>
+
+            <div class="space-y-12">
+                
+                <!-- Entry 1 -->
+                <div class="relative flex justify-between items-center w-full group">
+                    <div class="w-5/12 text-right pr-12">
+                        <h4 class="font-bold text-stone-900 dark:text-white text-lg">Higher Secondary Board</h4>
+                        <span class="block text-amber-700 dark:text-teal-400 font-mono text-sm tracking-[0.2em] uppercase mt-1">2025</span>
+                    </div>
+                    <!-- Square Node -->
+                    <div class="z-10 w-10 h-10 bg-white dark:bg-[#0b131f] border-2 border-amber-700 dark:border-teal-500 rotate-45 flex items-center justify-center shadow-lg group-hover:bg-amber-700 dark:group-hover:bg-teal-500 transition-all duration-300">
+                        <svg class="w-5 h-5 text-amber-700 dark:text-teal-500 -rotate-45 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                    </div>
+                    <div class="w-5/12 pl-12">
+                        <div class="bg-white/50 dark:bg-[#131e2f]/50 p-6 rounded-2xl border border-stone-200 dark:border-teal-900/30 backdrop-blur-md">
+                            <p class="text-stone-600 dark:text-slate-300 text-sm leading-relaxed">Achieved 88% in board examinations, laying a strong academic foundation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entry 2 -->
+                <div class="relative flex justify-between items-center w-full flex-row-reverse group">
+                    <div class="w-5/12 text-left pl-12">
+                        <h4 class="font-bold text-stone-900 dark:text-white text-lg">CS & Business Systems</h4>
+                        <span class="block text-amber-700 dark:text-teal-400 font-mono text-sm tracking-[0.2em] uppercase mt-1">2025</span>
+                    </div>
+                    <!-- Square Node -->
+                    <div class="z-10 w-10 h-10 bg-white dark:bg-[#0b131f] border-2 border-amber-700 dark:border-teal-500 rotate-45 flex items-center justify-center shadow-lg group-hover:bg-amber-700 dark:group-hover:bg-teal-500 transition-all duration-300">
+                        <svg class="w-5 h-5 text-amber-700 dark:text-teal-500 -rotate-45 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div class="w-5/12 pr-12">
+                        <div class="bg-white/50 dark:bg-[#131e2f]/50 p-6 rounded-2xl border border-stone-200 dark:border-teal-900/30 backdrop-blur-md">
+                            <p class="text-stone-600 dark:text-slate-300 text-sm leading-relaxed">Began engineering studies, mastering core logic and programming.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entry 3 -->
+                <div class="relative flex justify-between items-center w-full group">
+                    <div class="w-5/12 text-right pr-12">
+                        <h4 class="font-bold text-stone-900 dark:text-white text-lg">Advanced Engineering Math</h4>
+                        <span class="block text-amber-700 dark:text-teal-400 font-mono text-sm tracking-[0.2em] uppercase mt-1">2026</span>
+                    </div>
+                    <!-- Square Node -->
+                    <div class="z-10 w-10 h-10 bg-white dark:bg-[#0b131f] border-2 border-amber-700 dark:border-teal-500 rotate-45 flex items-center justify-center shadow-lg group-hover:bg-amber-700 dark:group-hover:bg-teal-500 transition-all duration-300">
+                        <svg class="w-5 h-5 text-amber-700 dark:text-teal-500 -rotate-45 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div class="w-5/12 pl-12">
+                        <div class="bg-white/50 dark:bg-[#131e2f]/50 p-6 rounded-2xl border border-stone-200 dark:border-teal-900/30 backdrop-blur-md">
+                            <p class="text-stone-600 dark:text-slate-300 text-sm leading-relaxed">Deep-dived into Laplace, Z-transforms, and Numerical Methods.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entry 4 -->
+                <div class="relative flex justify-between items-center w-full flex-row-reverse group">
+                    <div class="w-5/12 text-left pl-12">
+                        <h4 class="font-bold text-stone-900 dark:text-white text-lg">Event Volunteerism</h4>
+                        <span class="block text-amber-700 dark:text-teal-400 font-mono text-sm tracking-[0.2em] uppercase mt-1">2026</span>
+                    </div>
+                    <!-- Square Node -->
+                    <div class="z-10 w-10 h-10 bg-white dark:bg-[#0b131f] border-2 border-amber-700 dark:border-teal-500 rotate-45 flex items-center justify-center shadow-lg group-hover:bg-amber-700 dark:group-hover:bg-teal-500 transition-all duration-300">
+                        <svg class="w-5 h-5 text-amber-700 dark:text-teal-500 -rotate-45 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    </div>
+                    <div class="w-5/12 pr-12">
+                        <div class="bg-white/50 dark:bg-[#131e2f]/50 p-6 rounded-2xl border border-stone-200 dark:border-teal-900/30 backdrop-blur-md">
+                            <p class="text-stone-600 dark:text-slate-300 text-sm leading-relaxed">Engaging as a campus event volunteer to sharpen coordination and leadership.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= Premium Get In Touch ================= -->
+<section class="py-24 bg-[#fcfbf7] dark:bg-[#0b131f] px-6 lg:px-16 transition-colors duration-500 overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+        
+        <<!-- Corrected Premium Header -->
+<div class="text-center mb-20 space-y-3">
+    <span class="block text-xs font-bold uppercase tracking-[0.3em] text-amber-700 dark:text-teal-400">
+        Get In Touch
+    </span>
+    <h2 class="serif-title text-5xl font-extrabold text-stone-900 dark:text-white">
+        Connect With Me
+    </h2>
+    <!-- The class here was changed from stone-200 to amber-700 -->
+    <div class="w-16 h-1 bg-amber-700 dark:bg-teal-950 mx-auto rounded-full mt-6"></div>
+</div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            <!-- Left Side: Narrative & Socials -->
+            <div class="lg:col-span-5 space-y-12">
+                <div class="space-y-4">
+                    <h3 class="serif-title text-5xl font-extrabold text-stone-900 dark:text-white leading-tight">
+                        Let's build<br><span class="text-amber-700 dark:text-teal-400">better products.</span>
+                    </h3>
+                    <p class="text-stone-500 dark:text-slate-400 text-lg leading-relaxed">
+                        I'm currently open for new opportunities and meaningful conversations. Let’s create something remarkable.
+                    </p>
+                </div>
+
+                <!-- Premium Social Grid -->
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="#" class="group flex items-center gap-3 p-4 bg-stone-100/50 dark:bg-[#131e2f]/50 border border-stone-200 dark:border-teal-900/50 rounded-2xl hover:border-amber-700 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105">
+                        <i class="fa-brands fa-linkedin text-lg text-stone-400 group-hover:text-amber-700 dark:group-hover:text-teal-400"></i>
+                        <span class="text-sm font-semibold text-stone-700 dark:text-slate-200">LinkedIn</span>
+                    </a>
+                    <a href="#" class="group flex items-center gap-3 p-4 bg-stone-100/50 dark:bg-[#131e2f]/50 border border-stone-200 dark:border-teal-900/50 rounded-2xl hover:border-amber-700 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105">
+                        <i class="fa-brands fa-github text-lg text-stone-400 group-hover:text-amber-700 dark:group-hover:text-teal-400"></i>
+                        <span class="text-sm font-semibold text-stone-700 dark:text-slate-200">GitHub</span>
+                    </a>
+                    <a href="#" class="group flex items-center gap-3 p-4 bg-stone-100/50 dark:bg-[#131e2f]/50 border border-stone-200 dark:border-teal-900/50 rounded-2xl hover:border-amber-700 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105">
+                        <i class="fa-brands fa-whatsapp text-lg text-stone-400 group-hover:text-amber-700 dark:group-hover:text-teal-400"></i>
+                        <span class="text-sm font-semibold text-stone-700 dark:text-slate-200">WhatsApp</span>
+                    </a>
+                    <a href="#" class="group flex items-center gap-3 p-4 bg-stone-100/50 dark:bg-[#131e2f]/50 border border-stone-200 dark:border-teal-900/50 rounded-2xl hover:border-amber-700 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105">
+                        <i class="fa-brands fa-instagram text-lg text-stone-400 group-hover:text-amber-700 dark:group-hover:text-teal-400"></i>
+                        <span class="text-sm font-semibold text-stone-700 dark:text-slate-200">Instagram</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Side: Elevated Glassmorphic Form -->
+            <div class="lg:col-span-7 relative">
+                <!-- Decorative Glow -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-amber-700/20 to-teal-500/20 rounded-[32px] blur-xl"></div>
+                
+                <form class="relative p-10 bg-white/60 dark:bg-[#131e2f]/60 backdrop-blur-xl border border-stone-200 dark:border-teal-950 rounded-[32px] shadow-2xl space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2">Your Name</label>
+                            <input type="text" class="w-full px-5 py-4 bg-stone-100/50 dark:bg-black/20 border border-stone-200 dark:border-teal-900 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-700/20 dark:focus:ring-teal-400/20 transition-all" placeholder="Aarthi">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2">Email Address</label>
+                            <input type="email" class="w-full px-5 py-4 bg-stone-100/50 dark:bg-black/20 border border-stone-200 dark:border-teal-900 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-700/20 dark:focus:ring-teal-400/20 transition-all" placeholder="aarti@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2">Message</label>
+                        <textarea rows="5" class="w-full px-5 py-4 bg-stone-100/50 dark:bg-black/20 border border-stone-200 dark:border-teal-900 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-700/20 dark:focus:ring-teal-400/20 transition-all" placeholder="How can I help you?"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-5 bg-stone-900 dark:bg-teal-500 text-white dark:text-[#0b131f] rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:scale-[1.01] transition-transform shadow-lg">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-8 px-6 text-center text-xs tracking-wider border-t border-stone-800 dark:border-teal-950">
+        <p>&copy; 2026 Aarti. Built for the Portfolio Competition. Deployed on GitHub Pages.</p>
+    </footer>
+
+    <!-- AOS Script Inject -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Three.js Library Inject for 3D Math Visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Init Scroll Animation Layout
+        AOS.init({
+            once: true,
+            mirror: false
+        });
+
+        // Mobile Navbar Toggle Setup
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // Dark/Light Mode Management Logic
+        const html = document.documentElement;
+        const toggleBtn = document.getElementById('theme-toggle');
+        const toggleBtnMobile = document.getElementById('theme-toggle-mobile');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+        function toggleTheme() {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-moon';
+                themeIconMobile.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'light');
+                update3DColor(false);
+            } else {
+                html.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-sun';
+                themeIconMobile.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'dark');
+                update3DColor(true);
+            }
+        }
+
+        toggleBtn.addEventListener('click', toggleTheme);
+        toggleBtnMobile.addEventListener('click', toggleTheme);
+
+        // 3D Engine Initialization (Three.js Icosahedron Mesh)
+        const canvas = document.getElementById('canvas3d');
+        const scene = new THREE.Scene();
+        
+        // Custom micro-camera field mapping
+        const camera = new THREE.PerspectiveCamera(45, 288 / 384, 0.1, 100);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(270, 320);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Geometric shape matching your portrait/structural sketching design vibe
+        const geometry = new THREE.IcosahedronGeometry(1.6, 1);
+        
+        // Material configs mapped dynamically to theme colors
+        const material = new THREE.MeshBasicMaterial({
+            color: html.classList.contains('dark') ? 0x2dd4bf : 0x92400e, // Teal vs Amber
+            wireframe: true,
+            transparent: true,
+            opacity: 0.85
+        });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        // Track theme change events to update 3D colors seamlessly
+        function update3DColor(isDark) {
+            material.color.setHex(isDark ? 0x2dd4bf : 0x92400e);
+        }
+
+        // Initialize display properties based on storage history
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            themeIcon.className = 'fa-solid fa-sun';
+            themeIconMobile.className = 'fa-solid fa-sun';
+            update3DColor(true);
+        } else {
+            html.classList.remove('dark');
+            themeIcon.className = 'fa-solid fa-moon';
+            themeIconMobile.className = 'fa-solid fa-moon';
+            update3DColor(false);
+        }
+
+        // Mouse move track variables
+        let targetX = 0;
+        let targetY = 0;
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            targetX = (event.clientX - windowHalfX) * 0.003;
+            targetY = (event.clientY - windowHalfY) * 0.003;
+        });
+
+        // Main Animation Render Tick Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Auto constant spin
+            mesh.rotation.y += 0.005;
+            mesh.rotation.x += 0.002;
+
+            // Interactive delay mesh position pull matching mouse inputs
+            mesh.rotation.x += (targetY - mesh.rotation.x) * 0.05;
+            mesh.rotation.y += (targetX - mesh.rotation.y) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Canvas window frame resize adaptively
+        window.addEventListener('resize', () => {
+            camera.aspect = 270 / 320;
+            camera.updateProjectionMatrix();
+            renderer.setSize(270, 320);
+        });
+    </script>
+</body>
+
+</html>
